@@ -1,3 +1,6 @@
+import Banner from "@/components/home/Banner";
+import Blog from "@/components/home/Blog";
+import Testimonials from "@/components/home/Testimonials";
 import Layout from "@/components/Layout";
 import Head from "next/head";
 
@@ -11,7 +14,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <h1>E-Commerce Website</h1>
+        <Banner />
+        <Blog />
+        <Testimonials />
       </Layout>
     </>
   );
