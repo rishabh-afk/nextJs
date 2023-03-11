@@ -2,10 +2,9 @@ import Layout from "@/components/Layout";
 import React from "react";
 import Link from "next/link";
 
-const Hoodies = () => {
+const phones = () => {
   return (
     <Layout>
-      {" "}
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap gap-5 -m-4 justify-center">
@@ -17,7 +16,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -38,7 +37,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -59,7 +58,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -80,7 +79,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -101,7 +100,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -122,7 +121,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -143,7 +142,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -164,7 +163,7 @@ const Hoodies = () => {
                 <img
                   alt="ecommerce"
                   className="object-cover object-center w-full h-full block"
-                  src="https://m.media-amazon.com/images/I/81+3g00XzmL._UL1500_.jpg"
+                  src="https://m.media-amazon.com/images/I/31tyUh1todL._SY445_SX342_QL70_FMwebp_.jpg"
                 />
               </Link>
               <div className="mt-4">
@@ -184,4 +183,4 @@ const Hoodies = () => {
   );
 };
 
-export default Hoodies;
+export default phones;

@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       <Layout>
         <Banner />
-        <Blog />
+        {/* <Blog /> */}
         <Testimonials />
       </Layout>
     </>
