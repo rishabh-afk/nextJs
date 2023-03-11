@@ -3,6 +3,7 @@ import Blog from "@/components/home/Blog";
 import Testimonials from "@/components/home/Testimonials";
 import Layout from "@/components/Layout";
 import Head from "next/head";
+import { BsGrid3X3GapFill } from 'react-icons/bs';
 
 export default function Home() {
   return (
