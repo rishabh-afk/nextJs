@@ -1,9 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { BsCartCheckFill } from "react-icons/bs";
 
 const Header = () => {
+  const [showCart, setShowCart] = useState(false);
   return (
     <>
       <header className="text-slate-200 bg-slate-700 body-font mb-1 shadow-xl fixed w-full z-50">
@@ -41,11 +42,90 @@ const Header = () => {
               Smart Phones
             </Link>
           </nav>
-          <div className="flex flex-col items-center">
+          <div
+            className="flex flex-col items-center cursor-pointer"
+            onClick={() => setShowCart(!showCart)}
+          >
             <BsCartCheckFill className="" size={40} color={"white"} />
             <span className="text-xl text-white">My Cart</span>
           </div>
         </div>
+        {showCart && (
+          <>
+            <div className="absolute w-1/4 rounded shadow-xl top-30 right-0 bg-slate-200 text-black">
+              <h2 className="text-center text-2xl font-semibold py-2">
+                My Cart
+              </h2>
+              <ul className="p-4 pb-0">
+                <li className="border-b-2 border-b-slate-300 pb-3">
+                  <div className="flex">
+                    <div className="flex w-2/3 flex-col gap-2">
+                      <h3 className="font-bold text-xl">Tshirts</h3>
+                      <p>Description</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <p className="w-1/3">Quantity</p>
+                      <div className="flex gap-5 items-center">
+                        <span className="text-2xl bg-white px-4 py-1 rounded cursor-pointer">
+                          -
+                        </span>
+                        <span className="text-xl">2</span>
+                        <span className="text-2xl bg-white px-3 py-1 rounded cursor-pointer">
+                          +
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="border-b-2 border-b-slate-300 pb-3">
+                  <div className="flex">
+                    <div className="flex w-2/3 flex-col gap-2">
+                      <h3 className="font-bold text-xl">Tshirts</h3>
+                      <p>Description</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <p className="w-1/3">Quantity</p>
+                      <div className="flex gap-5 items-center">
+                        <span className="text-2xl bg-white px-4 py-1 rounded cursor-pointer">
+                          -
+                        </span>
+                        <span className="text-xl">2</span>
+                        <span className="text-2xl bg-white px-3 py-1 rounded cursor-pointer">
+                          +
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="border-b-2 border-b-slate-300 pb-3">
+                  <div className="flex">
+                    <div className="flex w-2/3 flex-col gap-2">
+                      <h3 className="font-bold text-xl">Tshirts</h3>
+                      <p>Description</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <p className="w-1/3">Quantity</p>
+                      <div className="flex gap-5 items-center">
+                        <span className="text-2xl bg-white px-4 py-1 rounded cursor-pointer">
+                          -
+                        </span>
+                        <span className="text-xl">2</span>
+                        <span className="text-2xl bg-white px-3 py-1 rounded cursor-pointer">
+                          +
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div className="flex justify-center py-4">
+                <button className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded">
+                  Checkout
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </header>
     </>
   );
