@@ -5,7 +5,7 @@ import Header from "./common/Header";
 const Layout = ({ children, ...props }: any) => {
   return (
     <>
-      <Header />
+      <Header props={props} />
       <main {...props}>{children}</main>
       <Footer />
     </>

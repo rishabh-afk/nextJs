@@ -1,10 +1,10 @@
 import ProductDetail from "@/components/product/ProductDetail";
 import React from "react";
 
-const Order = () => {
+const Order = (props: any) => {
   return (
     <div>
-      <ProductDetail />
+      <ProductDetail props={props} />
     </div>
   );
 };

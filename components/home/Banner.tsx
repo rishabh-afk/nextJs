@@ -4,7 +4,7 @@ import React from "react";
 const Banner = () => {
   return (
     <div className="h-fit w-full">
-      <img className="h-[100vh] w-full cover" src="/images/banner.avif" alt="Banner Image" />
+      <img className="h-[100vh] w-full cover" src="/images/banner.webp" alt="Banner Image" />
     </div>
   );
 };
