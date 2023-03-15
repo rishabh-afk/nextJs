@@ -65,9 +65,9 @@ const Header = (props: any) => {
                   </>
                 ) : (
                   <>
-                    {props.cart.map((cartItem: any) => {
+                    {props.cart.map((cartItem: any, index: any) => {
                       return (
-                        <>
+                        <div key={index}>
                           <li className="border-b-2 border-b-slate-300 pb-3">
                             <div className="flex">
                               <div className="flex w-2/3 flex-col gap-2">
@@ -80,7 +80,7 @@ const Header = (props: any) => {
                                 <p className="w-1/3">Quantity</p>
                                 <div className="flex gap-5 items-center">
                                   <span
-                                    onClick={() => props.removeFromCart("3", 1)}
+                                    onClick={() => props.removeFromCart("1", 1)}
                                     className="text-2xl bg-white px-4 py-1 rounded cursor-pointer"
                                   >
                                     -
@@ -91,7 +91,7 @@ const Header = (props: any) => {
                                   <span
                                     onClick={() => {
                                       props.addToCart(
-                                        "2",
+                                        "1",
                                         "tshirts",
                                         100,
                                         "xl",
@@ -107,7 +107,7 @@ const Header = (props: any) => {
                               </div>
                             </div>
                           </li>
-                        </>
+                        </div>
                       );
                     })}
                     <div>Total Amount: Rs. {props.total} /-</div>
@@ -116,9 +116,11 @@ const Header = (props: any) => {
               </ul>
               {props.cart.length > 0 && props.cart[0].itemCode !== "" && (
                 <div className="flex gap-5 justify-center py-4">
-                  <button className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded">
-                    Checkout
-                  </button>
+                  <Link href={"checkout"}>
+                    <button className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded">
+                      Checkout
+                    </button>
+                  </Link>
                   <button
                     onClick={() => props.clearcart()}
                     className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded"
