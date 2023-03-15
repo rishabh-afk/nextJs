@@ -78,6 +78,15 @@ export default function App({ Component, pageProps }: AppProps) {
               { itemCode, name, variant, size, price, qty: newQty },
             ]);
           }
+        } else {
+          setCart([
+            ...existingCart,
+            { itemCode, name, variant, size, price, qty },
+          ]);
+          saveCart([
+            ...existingCart,
+            { itemCode, name, variant, size, price, qty },
+          ]);
         }
       });
     }
@@ -95,33 +104,21 @@ export default function App({ Component, pageProps }: AppProps) {
         qty: 0,
       },
     ]);
-    saveCart([
-      {
-        itemCode: "",
-        name: "",
-        variant: "",
-        size: "",
-        price: 0,
-        qty: 0,
-      },
-    ]);
+    localStorage.clear();
   };
 
-  const removeFromCart = (
-    itemCode: string,
-    name: string,
-    variant: string,
-    size: string,
-    price: number,
-    qty: number
-  ) => {
-    const newCart = cart;
+  const removeFromCart = (itemCode: string, qty: number) => {
+    let newCart = cart;
     newCart.map((cartItem) => {
       if (cartItem.itemCode === itemCode) {
         cartItem.qty = cartItem.qty - qty;
       }
       if (cartItem.qty <= 0) {
-        newCart.slice(cart.indexOf(cartItem), 1);
+        newCart = newCart.filter((item) => item.itemCode !== itemCode);
+        if (newCart.length === 0) {
+          clearcart();
+          return;
+        }
       }
       setCart(newCart);
       saveCart(newCart);
@@ -130,34 +127,19 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* <Layout
-        cart={cart}
-        addToCart={addToCart}
-        // removeFromCart={removeFromCart}
-        // clearcart={clearcart}
-        // total={total}
-      >
-        <Component
-          cart={cart}
-          addToCart={addToCart}
-          // removeFromCart={removeFromCart}
-          // clearcart={clearcart}
-          // total={total}
-          {...pageProps}
-        />
-        <ToastContainer />
-      </Layout> */}
       <Header
         cart={cart}
-        addToCart={addToCart}
         total={total}
+        addToCart={addToCart}
         clearcart={clearcart}
+        removeFromCart={removeFromCart}
       />
       <Component
         cart={cart}
-        addToCart={addToCart}
         total={total}
+        addToCart={addToCart}
         clearcart={clearcart}
+        removeFromCart={removeFromCart}
         {...pageProps}
       />
       <Footer />
