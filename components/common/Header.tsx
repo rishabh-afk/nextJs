@@ -4,7 +4,6 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BsCartCheckFill } from "react-icons/bs";
 
 const Header = (props: any) => {
-  const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   return (
     <>
@@ -58,43 +57,55 @@ const Header = (props: any) => {
                 My Cart
               </h2>
               <ul className="p-4 pb-0">
-                {cart.length === 0 && (
+                {props.cart[0]?.itemCode === "" ? (
                   <>
                     <div>Your Cart is empty</div>
                   </>
-                )}
-                {cart.map((cartItem: any) => {
-                  return (
-                    <>
-                      <li className="border-b-2 border-b-slate-300 pb-3">
-                        <div className="flex">
-                          <div className="flex w-2/3 flex-col gap-2">
-                            <h3 className="font-bold text-xl">
-                              {cartItem?.name}
-                            </h3>
-                            {/* <p>Description</p> */}
-                          </div>
-                          <div className="flex flex-col items-center gap-2">
-                            <p className="w-1/3">Quantity</p>
-                            <div className="flex gap-5 items-center">
-                              <span className="text-2xl bg-white px-4 py-1 rounded cursor-pointer">
-                                -
-                              </span>
-                              <span className="text-xl">{cartItem?.qty}</span>
-                              <span className="text-2xl bg-white px-3 py-1 rounded cursor-pointer">
-                                +
-                              </span>
+                ) : (
+                  <>
+                    {props.cart.map((cartItem: any) => {
+                      return (
+                        <>
+                          <li className="border-b-2 border-b-slate-300 pb-3">
+                            <div className="flex">
+                              <div className="flex w-2/3 flex-col gap-2">
+                                <h3 className="font-bold text-xl">
+                                  {cartItem?.name}
+                                </h3>
+                                {/* <p>Description</p> */}
+                              </div>
+                              <div className="flex flex-col items-center gap-2">
+                                <p className="w-1/3">Quantity</p>
+                                <div className="flex gap-5 items-center">
+                                  <span className="text-2xl bg-white px-4 py-1 rounded cursor-pointer">
+                                    -
+                                  </span>
+                                  <span className="text-xl">
+                                    {cartItem?.qty}
+                                  </span>
+                                  <span className="text-2xl bg-white px-3 py-1 rounded cursor-pointer">
+                                    +
+                                  </span>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    </>
-                  );
-                })}
+                          </li>
+                        </>
+                      );
+                    })}
+                    <div>Total Amount: Rs. {props.total} /-</div>
+                  </>
+                )}
               </ul>
-              <div className="flex justify-center py-4">
+              <div className="flex gap-5 justify-center py-4">
                 <button className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded">
                   Checkout
+                </button>
+                <button
+                  onClick={() => props.clearcart()}
+                  className="px-8 py-2 border border-slate-600 hover:border-slate-500 hover:bg-slate-500 text-white bg-slate-600 rounded"
+                >
+                  Clear
                 </button>
               </div>
             </div>

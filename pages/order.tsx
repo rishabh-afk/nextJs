@@ -4,7 +4,7 @@ import React from "react";
 const Order = (props: any) => {
   return (
     <div>
-      <ProductDetail props={props} />
+      <ProductDetail cart={props.cart} addToCart={props.addToCart} />
     </div>
   );
 };
