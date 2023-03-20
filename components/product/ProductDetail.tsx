@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Product from "@/models/Product";
+import mongoose from "mongoose";
+import config from "../../appconfig/config";
 
 const ProductDetail = (props: any) => {
+  // console.log(props);
   const [pincode, setPincode] = useState("");
   const [service, setService] = useState(false);
   const checkPincodeAvailability = async () => {

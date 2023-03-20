@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { BsCartCheckFill } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
 
 const Header = (props: any) => {
   const [showCart, setShowCart] = useState(false);
@@ -42,6 +43,12 @@ const Header = (props: any) => {
               Smart Phones
             </Link>
           </nav>
+          <Link href={"login"}>
+            <div className="flex flex-col items-center cursor-pointer mr-5">
+              <CgProfile size={40} color={"white"} />
+              <span className="text-xl text-white">My Profile</span>
+            </div>
+          </Link>
           <div
             className="flex flex-col items-center cursor-pointer"
             onClick={() => setShowCart(!showCart)}
