@@ -1,37 +1,81 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Product from "@/models/Product";
-import mongoose from "mongoose";
-import config from "../../appconfig/config";
 
 const ProductDetail = (props: any) => {
   // console.log(props);
-  const [pincode, setPincode] = useState("");
-  const [service, setService] = useState(false);
-  const checkPincodeAvailability = async () => {
-    if (pincode.length !== 6) {
-      return;
-    } else {
-      const response = await fetch("http://localhost:3000/api/pincode", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(pincode),
-      });
-      const data = await response.json();
-      if (data.includes(pincode)) {
-        setService(true);
-        toast("Pincode is available", {
-          hideProgressBar: true,
-          autoClose: 2000,
-          type: "success",
-        });
-      } else {
-        setService(false);
-      }
-    }
+  // const [pincode, setPincode] = useState("");
+  // const [service, setService] = useState(false);
+  const [color, setColor] = useState();
+  const [size, setSize] = useState("");
+  const [product, setProduct] = useState({
+    availableQty: "",
+    category: "",
+    color: "",
+    createdAt: "",
+    desc: "",
+    img: "",
+    price: "",
+    size: "",
+    slug: "",
+    title: "",
+    updatedAt: "",
+    __v: "",
+    _id: "",
+  });
+  const [variant, setVariant] = useState({
+    white: { s: { slug: "" }, m: { slug: "" }, xl: { slug: "" } },
+    red: { s: { slug: "" }, m: { slug: "" }, xl: { slug: "" } },
+    green: { s: { slug: "" }, m: { slug: "" }, xl: { slug: "" } },
+    yellow: { s: { slug: "" }, m: { slug: "" }, xl: { slug: "" } },
+  });
+  const slug = useRouter();
+  const data = {
+    slug: slug.asPath.split("/")[2],
   };
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3000/api/getProVariant", data)
+      .then((response) => {
+        if (response.data.product != null) {
+          const data = response.data;
+          setProduct(response.data.product);
+          setColor(response.data.product.color);
+          setSize(response.data.product.size);
+          setVariant(response.data.variants);
+        }
+      });
+  }, [slug]);
+  // const checkPincodeAvailability = async () => {
+  //   if (pincode.length !== 6) {
+  //     return;
+  //   } else {
+  //     const response = await fetch("http://localhost:3000/api/pincode", {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(pincode),
+  //     });
+  //     const data = await response.json();
+  //     if (data.includes(pincode)) {
+  //       setService(true);
+  //       toast("Pincode is available", {
+  //         hideProgressBar: true,
+  //         autoClose: 2000,
+  //         type: "success",
+  //       });
+  //     } else {
+  //       setService(false);
+  //     }
+  //   }
+  // };
+  const refreshVariant = (size: any, color: any) => {
+    // e.preventDefault();
+  };
+  console.log(variant);
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
@@ -46,7 +90,7 @@ const ProductDetail = (props: any) => {
               BRAND NAME
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              The Catcher in the Rye
+              {product?.title}
             </h1>
             <div className="flex mb-4">
               <span className="flex items-center">
@@ -146,29 +190,62 @@ const ProductDetail = (props: any) => {
                 </a>
               </span>
             </div>
-            <p className="leading-relaxed">
-              Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-              sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-              juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-              seitan poutine tumeric. Gastropub blue bottle austin listicle
-              pour-over, neutra jean shorts keytar banjo tattooed umami
-              cardigan.
-            </p>
+            <p className="leading-relaxed">{product?.desc}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
-                <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                {Object.keys(variant).includes("white") &&
+                  Object.keys(variant["white"]).includes(size) && (
+                    <button
+                      className={`border-2 bg-white rounded-full w-6 h-6 focus:outline-none ${
+                        color === "white" ? "border-black" : "border-gray-300"
+                      }`}
+                    ></button>
+                  )}
+                {Object.keys(variant).includes("red") &&
+                  Object.keys(variant["red"]).includes(size) && (
+                    <button
+                      className={`border-2 ml-1 bg-red-700 rounded-full w-6 h-6 focus:outline-none ${
+                        color === "red" ? "border-black" : "border-gray-300"
+                      }`}
+                    ></button>
+                  )}
+                {Object.keys(variant).includes("green") &&
+                  Object.keys(variant["green"]).includes(size) && (
+                    <button
+                      className={`border-2 ml-1 bg-green-600 rounded-full w-6 h-6 focus:outline-none ${
+                        color === "green" ? "border-black" : "border-gray-300"
+                      }`}
+                    ></button>
+                  )}
+                {Object.keys(variant).includes("yellow") &&
+                  Object.keys(variant["yellow"]).includes(size) && (
+                    <button
+                      className={`border-2 ml-1 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none ${
+                        color === "yellow" ? "border-black" : "border-gray-300"
+                      }`}
+                    ></button>
+                  )}
               </div>
               <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">
-                  <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                    <option>SM</option>
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
+                  <select
+                    onChange={(e: any) => refreshVariant(e.target.value, color)}
+                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                  >
+                    {/* {Object.keys(
+                      variant["white" || "red" || "green" || "yellow"]
+                    )?.includes("s") && <option value={"s"}>S</option>}
+                    {Object.keys(
+                      variant["white" || "red" || "green" || "yellow"]
+                    )?.includes("m") && <option value={"m"}>M</option>}
+                    {Object.keys(
+                      variant["white" || "red" || "green" || "yellow"]
+                    )?.includes("xl") && <option value={"xl"}>XL</option>} */}
+                    <option value={"s"}>S</option>
+                    <option value={"m"}>M</option>
+                    <option value={"xl"}>XL</option>
                   </select>
                   <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                     <svg
@@ -188,17 +265,24 @@ const ProductDetail = (props: any) => {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                $58.00
+                Rs. {product?.price}
               </span>
               <button
                 onClick={() => {
-                  props.addToCart("1", "tshirts", 100, "xl", "Font-WBX", 1);
+                  props.addToCart(
+                    product._id,
+                    product.title,
+                    product.price,
+                    product.size,
+                    product.color,
+                    1
+                  );
                 }}
                 className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
               >
                 Add To Cart
               </button>
-              <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+              {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
                   strokeLinecap="round"
@@ -209,9 +293,9 @@ const ProductDetail = (props: any) => {
                 >
                   <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                 </svg>
-              </button>
+              </button> */}
             </div>
-            <div className="flex gap-5 my-5">
+            {/* <div className="flex gap-5 my-5">
               <input
                 type="text"
                 min={6}
@@ -228,7 +312,7 @@ const ProductDetail = (props: any) => {
               >
                 Check
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

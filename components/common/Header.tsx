@@ -1,10 +1,34 @@
 import Link from "next/link";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { BsCartCheckFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
+import { useRouter } from "next/router";
 
 const Header = (props: any) => {
+  const [product, setProduct] = useState({
+    color: "",
+    price: "",
+    size: "",
+    title: "",
+    _id: "",
+  });
+  const slug = useRouter();
+  const data = {
+    slug: slug.asPath.split("/")[2],
+  };
+  useEffect(() => {
+    axios
+      .post("http://localhost:3000/api/getProVariant", data)
+      .then((response) => {
+        if (response.data.product != null) {
+          const data = response.data;
+          setProduct(response.data.product);
+        }
+      });
+  }, [slug]);
+  console.log("object heloo", product);
   const [showCart, setShowCart] = useState(false);
   return (
     <>
@@ -87,7 +111,9 @@ const Header = (props: any) => {
                                 <p className="w-1/3">Quantity</p>
                                 <div className="flex gap-5 items-center">
                                   <span
-                                    onClick={() => props.removeFromCart("1", 1)}
+                                    onClick={() =>
+                                      props.removeFromCart(product._id, 1)
+                                    }
                                     className="text-2xl bg-white px-4 py-1 rounded cursor-pointer"
                                   >
                                     -
@@ -98,11 +124,11 @@ const Header = (props: any) => {
                                   <span
                                     onClick={() => {
                                       props.addToCart(
-                                        "1",
-                                        "tshirts",
-                                        100,
-                                        "xl",
-                                        "Font-WBX",
+                                        product._id,
+                                        product.title,
+                                        product.price,
+                                        product.size,
+                                        product.color,
                                         1
                                       );
                                     }}
