@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const ProductDetail = (props: any) => {
-  // console.log(props);
   // const [pincode, setPincode] = useState("");
   // const [service, setService] = useState(false);
   const [color, setColor] = useState();
@@ -75,7 +74,6 @@ const ProductDetail = (props: any) => {
   const refreshVariant = (size: any, color: any) => {
     // e.preventDefault();
   };
-  console.log(variant);
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">

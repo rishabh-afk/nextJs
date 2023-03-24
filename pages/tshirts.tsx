@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Product from "@/models/Product";
+import connectDB from "@/middleware/mongoose";
 import mongoose from "mongoose";
 import config from "../appconfig/config";
 
@@ -69,9 +70,7 @@ const Tshirts = ({ products }: any) => {
 };
 
 export async function getServerSideProps(context: any) {
-  if (mongoose.connections[0].readyState) {
-    await mongoose.connect(config.MONGO_URL);
-  }
+  await connectDB();
   let products = await Product.find({ category: "upper" });
   let tshirt: any = {};
   products.map((product: any) => {

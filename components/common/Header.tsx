@@ -28,7 +28,6 @@ const Header = (props: any) => {
         }
       });
   }, [slug]);
-  console.log("object heloo", product);
   const [showCart, setShowCart] = useState(false);
   return (
     <>

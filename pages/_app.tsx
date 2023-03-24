@@ -1,9 +1,8 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import "react-toastify/dist/ReactToastify.css";
-// import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
-// import Layout from "@/components/Layout";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 
@@ -127,6 +126,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <ToastContainer autoClose={1000} closeButton closeOnClick />
       <Header
         cart={cart}
         total={total}

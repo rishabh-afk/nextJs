@@ -2,7 +2,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const Checkout = (props: any) => {
-  console.log("checkout props", props);
   const [checkout, setCheckout] = useState({
     name: "",
     email: "",

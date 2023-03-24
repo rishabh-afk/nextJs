@@ -1,11 +1,39 @@
 import mongoose from "mongoose";
+const MONGO_URL = process.env.MONGO_URL;
 
-const connectDB = (handler) => async (req, res) => {
-  if (mongoose.connections[0].readyState) {
-    return handler(req, res);
+if (!MONGO_URL) {
+  throw new Error(
+    "Please define the MONGO_URL environment variable inside .env.local"
+  );
+}
+
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB() {
+  if (cached.conn) {
+    return cached.conn;
   }
-  await mongoose.connect(process.env.MONGO_URL);
-  return handler(req, res);
-};
+
+  if (!cached.promise) {
+    const opts = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      bufferCommands: false,
+      bufferMaxEntries: 0,
+      useFindAndModify: true,
+      useCreateIndex: true,
+    };
+
+    cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
 
 export default connectDB;
