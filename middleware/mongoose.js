@@ -7,33 +7,15 @@ if (!MONGO_URL) {
   );
 }
 
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
 async function connectDB() {
-  if (cached.conn) {
-    return cached.conn;
-  }
-
-  if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: true,
-      useCreateIndex: true,
-    };
-
-    cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
-      return mongoose;
+  await mongoose
+    .connect(MONGO_URL)
+    .then((connection) => {
+      console.log("--------- DB IS CONNECTED SUCCESSFULLY ---------");
+    })
+    .catch((error) => {
+      console.log("--------- ERROR---------", error);
     });
-  }
-  cached.conn = await cached.promise;
-  return cached.conn;
 }
 
 export default connectDB;
